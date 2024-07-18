@@ -1,0 +1,7 @@
+.git
+.gitignore
+compose.yaml
+Dockerfile
+vendor/
+mysql/
+.dockerignore

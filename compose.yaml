@@ -1,0 +1,32 @@
+services:
+  apiflight-app:
+    build: .
+    container_name: apiflight-app
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/vendor/
+    ports:
+      - 8000:80
+    networks:
+      - api-network
+    
+  apiflight-db:
+    image: mysql
+    env_file:
+      - ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}    
+    volumes:
+      - "./mysql/:/var/lib/mysql"
+    ports:
+      - 3306:3306
+    networks:
+      - api-network
+      
+networks:
+  api-network:
+    driver: bridge
